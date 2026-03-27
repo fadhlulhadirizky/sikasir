@@ -84,7 +84,7 @@ const Login = () => {
                         <div style={{transform: 'translateY(2vh)'}} className="text-[11px] md:text-xs text-center space-y-4">
                             <p className="text-[#64748B]">Belum punya akun? <a href="https://wa.me/6283192083302" className="text-[#DC2626] font-bold hover:underline">Daftar Sekarang</a></p>
                             <div className="text-[#94A3B8] text-[9px] uppercase tracking-widest pt-2">
-                                <p style={{ marginTop: 0, marginBottom: 0, transform: 'translateY(7vh)' }}>
+                                <p style={{ marginTop: 0, marginBottom: 0, transform: 'translateY(8vh)' }}>
                                     ©2026 SiKasir - Digital UMKM </p>
                             </div>
                         </div>
