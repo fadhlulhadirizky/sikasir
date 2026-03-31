@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// @ts-ignore
 import Sidebar from './components/Sidebar';
+// @ts-ignore
 import Header from './components/Header';
 // @ts-ignore
 import Login from './pages/Login';
