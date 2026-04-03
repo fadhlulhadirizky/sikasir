@@ -389,6 +389,25 @@ const statistikPlatform = async (req, res) => {
   }
 };
 
+// admin kelola kasir (semua toko)
+
+const daftarKasirAdmin = async (req, res) => {
+  try {
+    const { data, error } = await supabaseAdmin
+      .from('profiles')
+      .select('*, toko:toko_id(id, nama_toko)')
+      .eq('role', 'kasir')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    return res.status(200).json({ success: true, data });
+  } catch (error) {
+    console.error('Error ambil daftar kasir admin:', error.message);
+    return res.status(500).json({ success: false, message: 'Gagal mengambil daftar kasir.' });
+  }
+};
+
 module.exports = {
   daftarPemilik,
   tambahPemilik,
@@ -398,5 +417,7 @@ module.exports = {
   tambahKasir,
   updateKasir,
   nonaktifkanKasir,
-  statistikPlatform
+  statistikPlatform,
+  daftarKasirAdmin
 };
+
