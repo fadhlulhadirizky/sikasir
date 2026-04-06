@@ -6,7 +6,7 @@ const daftarPemilik = async (req, res) => {
   try {
     const { data, error } = await supabaseAdmin
       .from('profiles')
-      .select('*, toko:toko_id(id, nama_toko, is_active)')
+      .select('*, toko:toko_id(id, nama_toko, alamat, no_telepon, logo_url, is_active)')
       .eq('role', 'pemilik')
       .order('created_at', { ascending: false });
 
@@ -25,7 +25,7 @@ const tambahPemilik = async (req, res) => {
   let createdTokoId = null;
 
   try {
-    const { nama_lengkap, email, password, nama_toko } = req.body;
+    const { nama_lengkap, email, password, nama_toko, alamat, no_telepon, logo_url } = req.body;
 
     if (!nama_lengkap || !email || !password || !nama_toko) {
       return res.status(400).json({
@@ -71,7 +71,13 @@ const tambahPemilik = async (req, res) => {
 
     const { data: tokoData, error: tokoError } = await supabaseAdmin
       .from('toko')
-      .insert({ nama_toko, pemilik_id: userId })
+      .insert({ 
+        nama_toko, 
+        alamat: alamat || null,
+        no_telepon: no_telepon || null,
+        logo_url: logo_url || null,
+        pemilik_id: userId 
+      })
       .select()
       .single();
 

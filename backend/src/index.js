@@ -9,6 +9,7 @@ const produkRoutes = require('./routes/produk');
 const stokRoutes = require('./routes/stok');
 const transaksiRoutes = require('./routes/transaksi');
 const laporanRoutes = require('./routes/laporan');
+const uploadRoutes = require('./routes/upload');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -22,7 +23,7 @@ app.use(cors({
 }));
 
 // health check
-app.get('/api', (req, res) => {
+app.get('/api/health', (req, res) => {
   res.json({
     success: true,
     message: 'SiKasir API berjalan!',
@@ -38,6 +39,7 @@ app.use('/api/produk', produkRoutes);
 app.use('/api/stok', stokRoutes);
 app.use('/api/transaksi', transaksiRoutes);
 app.use('/api/laporan', laporanRoutes);
+app.use('/api/uploadthing', uploadRoutes);
 
 // 404
 app.use((req, res) => {

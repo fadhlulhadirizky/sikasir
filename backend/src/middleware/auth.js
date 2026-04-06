@@ -43,6 +43,13 @@ const verifikasiToken = async (req, res, next) => {
       });
     }
 
+    if (profil.toko_id && profil.toko && profil.toko.is_active === false) {
+      return res.status(403).json({
+        success: false,
+        message: 'Toko kamu sudah dinonaktifkan. Hubungi admin.'
+      });
+    }
+
     req.user = {
       id: profil.id,
       nama_lengkap: profil.nama_lengkap,
