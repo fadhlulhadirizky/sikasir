@@ -16,15 +16,12 @@ const login = async (req, res) => {
       password
     });
 
-if (error) {
-      // 1. Log error aslinya ke terminal backend agar kamu bisa melihatnya
-      console.error('Supabase Auth Error:', error.message); 
-
+    if (error) {
+      console.error('Supabase Auth Error:', error.message);
       return res.status(401).json({
         success: false,
-        // 2. Berikan pesan error yang lebih spesifik ke frontend
-        message: error.message === 'Invalid login credentials' 
-          ? 'Email atau password salah.' 
+        message: error.message === 'Invalid login credentials'
+          ? 'Email atau password salah.'
           : `Gagal login: ${error.message}`
       });
     }
@@ -91,12 +88,27 @@ const logout = async (req, res) => {
 };
 
 const me = async (req, res) => {
-  return res.status(200).json({
-    success: true,
-    data: {
-      user: req.user
+  try {
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        message: 'Token tidak valid atau session tidak ditemukan.'
+      });
     }
-  });
+
+    return res.status(200).json({
+      success: true,
+      data: {
+        user: req.user
+      }
+    });
+  } catch (error) {
+    console.error('Error auth me:', error.message);
+    return res.status(500).json({
+      success: false,
+      message: 'Terjadi kesalahan server saat mengambil session.'
+    });
+  }
 };
 
 module.exports = { login, logout, me };
